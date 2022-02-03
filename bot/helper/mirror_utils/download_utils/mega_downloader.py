@@ -166,7 +166,7 @@ class MegaDownloadHelper:
             LOGGER.info('Checking File/Folder if already in Drive')
             mname = node.getName()
             if listener.isZip:
-                mname = mname + ".zip"
+                mname = f'{mname}.zip'
             if not listener.extract:
                 gd = GoogleDriveHelper()
                 smsg, button = gd.drive_list(mname, True)

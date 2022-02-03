@@ -82,7 +82,7 @@ class MirrorListener(listeners.MirrorListeners):
                 with download_dict_lock:
                     download_dict[self.uid] = ZipStatus(name, m_path, size)
                 pswd = self.pswd
-                path = m_path + ".zip"
+                path = f'{m_path}.zip'
                 LOGGER.info(f'Zip: orig_path: {m_path}, zip_path: {path}')
                 if pswd is not None:
                     subprocess.run(["7z", "a", "-mx=0", f"-p{pswd}", path, m_path])
@@ -361,10 +361,7 @@ def _mirror(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False
         link = link.split("://", maxsplit=1)
         link = f'{link[0]}://{ussr}:{pssw}@{link[1]}'
     pswd = mesg[0].split('pswd: ')
-    if len(pswd) > 1:
-        pswd = pswd[1]
-    else:
-        pswd = None
+    pswd = pswd[1] if len(pswd) > 1 else None
     link = re.split(r"pswd:|\|", link)[0]
     link = link.strip()
     reply_to = update.message.reply_to_message

@@ -246,7 +246,7 @@ class GoogleDriveHelper:
                     return
                 if link is None:
                     raise Exception('Upload has been manually cancelled')
-                LOGGER.info("Uploaded To G-Drive: " + file_path)
+                LOGGER.info(f'Uploaded To G-Drive: {file_path}')
             except Exception as e:
                 if isinstance(e, RetryError):
                     LOGGER.info(f"Total Attempts: {e.last_attempt.attempt_number}")
@@ -272,7 +272,7 @@ class GoogleDriveHelper:
                     msg = self.deletefile(link)
                     LOGGER.info(f"{msg}")
                     return
-                LOGGER.info("Uploaded To G-Drive: " + file_name)
+                LOGGER.info(f'Uploaded To G-Drive: {file_name}')
             except Exception as e:
                 if isinstance(e, RetryError):
                     LOGGER.info(f"Total Attempts: {e.last_attempt.attempt_number}")
