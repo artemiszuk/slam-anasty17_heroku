@@ -174,10 +174,10 @@ def split(path, size, filee, dirpath, split_size, start_time=0, i=1):
     if filee.upper().endswith(VIDEO_SUFFIXES):
         base_name, extension = os.path.splitext(filee)
         parts = math.ceil(size/TG_SPLIT_SIZE)
-        if EQUAL_SPLITS:
-            split_size = (size // parts) - 2500000
-        else:
-            split_size = split_size - 2500000
+        split_size = (
+            (size // parts) - 2500000 if EQUAL_SPLITS else split_size - 2500000
+        )
+
         while i <= parts :
             parted_name = "{}.part{}{}".format(str(base_name), str(i).zfill(3), str(extension))
             out_path = os.path.join(dirpath, parted_name)
@@ -194,7 +194,7 @@ def split(path, size, filee, dirpath, split_size, start_time=0, i=1):
             start_time += lpd - 3
             i = i + 1
     else:
-        out_path = os.path.join(dirpath, filee + ".")
+        out_path = os.path.join(dirpath, f'{filee}.')
         subprocess.run(["split", "--numeric-suffixes=1", "--suffix-length=3", f"--bytes={split_size}", path, out_path])
 
 def get_media_info(path):
